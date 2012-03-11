@@ -2,10 +2,8 @@ package com.sensetecnic.thingbroker.subscriptions;
 
 import java.util.List;
 
-import com.sensetecnic.thingbroker.things.Thing;
-
 /**
- * A thing event subscription
+ * A thing-event subscription
  * 
  * @author Mike Blackstock
  *
