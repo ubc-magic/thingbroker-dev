@@ -39,7 +39,7 @@ public class MemorySubscriptionServiceImplTest {
 	private static final Log logger = LogFactory.getLog(MemorySubscriptionServiceImplTest.class);
 	static BrokerService broker;
 	EventService eventService;
-	SubscriptionService subscriptionService;
+	MemorySubscriptionServiceImpl subscriptionService;
 	ConnectionFactory connectionFactory;
 	
 	@BeforeClass
@@ -83,7 +83,13 @@ public class MemorySubscriptionServiceImplTest {
 	
 	@After
 	public void destroy() {
-
+		try {
+			// close the connection
+			subscriptionService.destroy();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -98,7 +104,19 @@ public class MemorySubscriptionServiceImplTest {
 				int numEvents = 0;
 				do {
 					List<Event> newEvents = subscriptionService.getEvents(subId, 10);
-					logger.debug(newEvents);
+					logger.debug("subscriber "+subId+newEvents);
+					numEvents += newEvents.size();
+				} while (numEvents < 5);
+			}
+		});
+		
+		final long subId2 = subscriptionService.subscribe("test-thing");
+		Thread receive2 = new Thread(new Runnable() {
+			public void run() {
+				int numEvents = 0;
+				do {
+					List<Event> newEvents = subscriptionService.getEvents(subId2, 10);
+					logger.debug("subscriber "+subId2+newEvents);
 					numEvents += newEvents.size();
 				} while (numEvents < 5);
 			}
@@ -111,7 +129,7 @@ public class MemorySubscriptionServiceImplTest {
 					Event testEvent = new Event();
 					testEvent.setClientTimestamp(System.currentTimeMillis());
 					LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>();
-					data.put("value", 45.0);
+					data.put("value", i*1.0);
 					testEvent.setData(data);
 					List<Event> events = new ArrayList<Event>();
 					events.add(testEvent);
@@ -120,14 +138,21 @@ public class MemorySubscriptionServiceImplTest {
 			}
 		});
 		receiver.start();
+		receive2.start();
+
 		sender.start();
 		try {
 			receiver.join();
+			receive2.join();
 			sender.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		subscriptionService.unsubscribe(subId);
+		subscriptionService.unsubscribe(subId2);
+		
 
 	}
 	

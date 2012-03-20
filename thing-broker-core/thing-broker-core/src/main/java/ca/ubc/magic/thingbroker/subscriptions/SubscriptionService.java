@@ -32,7 +32,7 @@ public interface SubscriptionService {
 	 * @param name
 	 * @return
 	 */
-	void addToSubscription(String name);
+	void addToSubscription(long id, String name);
 	
 	/**
 	 * Unsubscribe from the subscription id.  This effectively deletes the subscription.

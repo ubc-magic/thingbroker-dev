@@ -17,6 +17,7 @@ import javax.jms.Session;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.DisposableBean;
 
 import ca.ubc.magic.thingbroker.ThingBrokerException;
 import ca.ubc.magic.thingbroker.events.Event;
@@ -29,7 +30,7 @@ import ca.ubc.magic.thingbroker.subscriptions.SubscriptionService;
  * @author Mike Blackstock
  *
  */
-public class MemorySubscriptionServiceImpl implements SubscriptionService{
+public class MemorySubscriptionServiceImpl implements SubscriptionService, DisposableBean {
 	private static final Log logger = LogFactory.getLog(MemorySubscriptionServiceImpl.class);
 	private static long nextId = 0;
 
@@ -39,8 +40,8 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService{
 	public MemorySubscriptionServiceImpl(ConnectionFactory connectionFactory) {
 		this.subscriptions = new ConcurrentHashMap<Long, JmsSubscription>();
 		this.connection = null;
-		// TODO: may move this to after properties set
 		try {
+			// we start the connection -- adding sessions doesn't seem to be a problem
 			this.connection = connectionFactory.createConnection();
 			this.connection.start();
 		} catch (JMSException e) {
@@ -50,11 +51,10 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService{
 	
 	public long subscribe(String name) {
 		Subscription sub = new Subscription();
-		sub.setId(nextId++);
+		sub.setId(nextId+1);
 		List<String> thingList = new ArrayList<String>();
 		thingList.add(name);
 		sub.setThing(thingList);
-		
 		try {
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			Destination topic = session.createTopic("thingbroker."+name);
@@ -64,15 +64,21 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService{
 			subscriptions.put(sub.getId(), s);
 		} catch (JMSException e) {
 			logger.error(e.getMessage());
-			nextId--;
 			throw new ThingBrokerException("JMS Exception occurred when subscribing", e);
 		}
-
+		nextId++;
 		return sub.getId();
 	}
 
-	public void addToSubscription(String name) {
-	    throw new UnsupportedOperationException("TODO");
+	public void addToSubscription(long id, String name) {
+		// add another topic to an existing subscription
+		// this may be done by having the JmsSubscription's session have multiple consumers, then shut them all down.
+		// currently not supported.
+		
+		// sub get session
+		// consumer.sub.createConsumer(topic)
+		// s.addConsumer(consumer) - this will call consumer.setMessageListener(this), and add it to the list of consuemrs
+		throw new UnsupportedOperationException("TODO");
 	}
 
 	public void unsubscribe(long subId) {
@@ -90,6 +96,10 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService{
 	public Subscription getSubscription(long id)
 			throws SubscriptionExpiredException {
 		return subscriptions.get(id).getSubscription();
+	}
+
+	public void destroy() throws Exception {
+		connection.close();
 	}
 
 }
