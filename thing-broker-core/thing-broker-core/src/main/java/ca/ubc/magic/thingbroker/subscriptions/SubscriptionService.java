@@ -13,15 +13,26 @@ import ca.ubc.magic.thingbroker.events.Event;
 public interface SubscriptionService {
 
 	/**
-	 * Subscribe to things; thing names may contain wildcards.
+	 * Subscribe to thing; thing name may contain wildcards.
 	 * 
-	 * PUT /subs/{name}
+	 * POST /subs?thing={name}
 	 * 
+	 * @param subId subscription id, if 
 	 * @param name
-	 * @param listener - optional listener.  If not null, calls listener when new data is sent to the thing.
-	 * @return the id of the subscription
+	 * @return
 	 */
-	long subscribe(List<String> names);
+	long subscribe(String name);
+	
+	/**
+	 * add another thing to an existing subscription; thing may contain wildcards
+	 * 
+	 * PUT /subs/{id}?thing={name}
+	 * 
+	 * @param subId subscription id, if 
+	 * @param name
+	 * @return
+	 */
+	void addToSubscription(String name);
 	
 	/**
 	 * Unsubscribe from the subscription id.  This effectively deletes the subscription.
@@ -39,7 +50,7 @@ public interface SubscriptionService {
 	 * Get pending data from the subscription.  Note that if the subscription is not
 	 * used after some period of time, it will expire.
 	 * 
-	 * GET /subs/data/{id}
+	 * GET /subs/{id}/events?wait_time={wait}
 	 * 
 	 * @param id
 	 * @return
@@ -47,7 +58,7 @@ public interface SubscriptionService {
 	List<Event> getEvents(long id, long waitTime) throws SubscriptionExpiredException;
 	
 	/**
-	 * Get subscription info.
+	 * Get subscription.
 	 * 
 	 * GET /subs/{id}
 	 * 

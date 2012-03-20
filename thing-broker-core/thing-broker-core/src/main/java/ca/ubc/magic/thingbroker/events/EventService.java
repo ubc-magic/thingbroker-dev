@@ -51,7 +51,7 @@ public interface EventService {
 	 * @param data events to send
 	 * @param save true if event should be saved
 	 */
-	void sendData(String name, List<Event> data, boolean save);
+	void sendEvents(String name, List<Event> data, boolean save);
 	
 	/**
 	 * Add an index to a data field so it can be queried.  Wildcards supported.

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="mee" basedir="." default="usage">
+
+	<property file="build.properties" />
+	
+	<property name="database.createScript" location="${"></property>
+
+	<!-- need mysql connector jar only -->
+    <path id="master-classpath">
+        <fileset dir="${home.dir}${maven.repo}/mysql/mysql-connector-java/5.1.11">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+	<target name="usage">
+		<echo message="" />
+		<echo message="mee database build file" />
+		<echo message="------------------------------------------------------" />
+		<echo message="" />
+		<echo message="Available targets are:" />
+		<echo message="" />
+		<echo message="createTables	--> create database and tables." />
+		<echo message="loadData		--> load database tables with initial test data." />
+		<echo message="loadData-prod--> load database tables with data for production." />
+		<echo message="" />
+	</target>
+
+	<target name="createTables">
+		<echo message="CREATE TABLES USING: ${database.driver} ${database.url}" />
+		<sql driver="${database.driver}" url="${database.createUrl}" userid="${database.username}"
+			password="${database.password}" onerror="continue" src="db/create_db.sql">
+			<classpath refid="master-classpath" />
+		</sql>
+		<sql driver="${database.driver}" url="${database.url}" userid="${database.username}"
+			password="${database.password}" onerror="continue" src="db/create_tables.sql">
+			<classpath refid="master-classpath" />
+		</sql>
+	</target>
+	
+	<target name="loadData">
+		<echo message="LOAD DATA USING: ${database.driver} ${database.url}" />
+		<sql driver="${database.driver}" url="${database.url}" userid="${database.username}"
+			password="${database.password}" onerror="continue" src="db/load_data.sql">
+			<classpath refid="master-classpath" />
+		</sql>
+	</target>
+		
+</project>

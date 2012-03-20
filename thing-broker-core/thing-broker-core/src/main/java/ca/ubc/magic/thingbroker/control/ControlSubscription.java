@@ -4,7 +4,7 @@
 package ca.ubc.magic.thingbroker.control;
 
 /**
- * A Control message subscription
+ * A Control message subscription.
  * 
  * @author Mike Blackstock
  *

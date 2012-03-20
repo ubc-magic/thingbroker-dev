@@ -10,9 +10,9 @@ import java.util.Map;
  *
  */
 public class Event {
-	
+
 	private long id;
-	private long clientTimestamp;
+	private Long clientTimestamp;
 	private long serverTimestamp;
 	private long thingId;
 	private Map<String, Object> data;
@@ -34,11 +34,11 @@ public class Event {
 		this.thingId = thingId;
 	}
 
-	public long getClientTimestamp() {
+	public Long getClientTimestamp() {
 		return clientTimestamp;
 	}
 
-	public void setClientTimestamp(long clientTimestamp) {
+	public void setClientTimestamp(Long clientTimestamp) {
 		this.clientTimestamp = clientTimestamp;
 	}
 
@@ -64,6 +64,25 @@ public class Event {
 
 	public void setSave(boolean save) {
 		this.save = save;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Event [id=");
+		builder.append(id);
+		builder.append(", clientTimestamp=");
+		builder.append(clientTimestamp);
+		builder.append(", serverTimestamp=");
+		builder.append(serverTimestamp);
+		builder.append(", thingId=");
+		builder.append(thingId);
+		builder.append(", data=");
+		builder.append(data);
+		builder.append(", save=");
+		builder.append(save);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
