@@ -2,13 +2,19 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Thing Broker</title>
 </head>
 <body>
 <h1>
-	Hello world!  
+	Welcome to Thing Broker
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  This is the thing broker home page</P>
+<P> The time on the server is ${serverTime}. </P>
+
+<ul>
+<li><a href="<c:url value='/events'/>">Event Test Page</a></li>
+<li><a href="<c:url value='/subs'/>">Subscriptions Test Page</a></li>
+</ul>
 </body>
 </html>

@@ -47,22 +47,30 @@ public class EventServiceImpl implements EventService {
 	    throw new UnsupportedOperationException("TODO");
 	}
 
-	public void sendEvents(String name, List<Event> events, boolean save) {
-		// TODO Auto-generated method stub
+	public void sendEvents(String name, List<Event> events, boolean persist) {
 		// get the thing id from the repository
-		long thingId;
 		try {
-			thingId = thingRepository.getId(name);
+			long thingId = thingRepository.getId(name);
+			for (Event event: events) {
+				sendToBroker(name, thingId, event, persist);
+			}
 		} catch (EmptyResultDataAccessException e) {		
 			// TODO: do we create one as in the MB1 and 2, or ?
 			throw new ThingNotFoundException("attempt to send events to non-existent thing", e);
 		}
 		
-		for (Event event: events) {
-			sendToBroker(name, thingId, event);
+	}
+	
+	public void sendEvent(String name, Event event, boolean persist) {
+		try {
+			long thingId = thingRepository.getId(name);
+			sendToBroker(name, thingId, event, persist);
+		} catch (EmptyResultDataAccessException e) {		
+			// TODO: do we create one as in the MB1 and 2, or ?
+			throw new ThingNotFoundException("attempt to send events to non-existent thing", e);
 		}
 	}
-
+	
 	public void addIndex(String name, String fieldName) {
 		// TODO Auto-generated method stub
 	    throw new UnsupportedOperationException("TODO");
@@ -75,7 +83,7 @@ public class EventServiceImpl implements EventService {
 	 * @param thingId
 	 * @param event
 	 */
-	private void sendToBroker(String thingName, final long thingId, final Event event) {
+	private void sendToBroker(String thingName, final long thingId, final Event event, final boolean persist) {
 		Destination destination = new ActiveMQTopic("thingbroker." + thingName);
 		logger.debug("sending "+event+" to broker");
 		jmsTemplate.send(destination, new MessageCreator() {
@@ -83,6 +91,7 @@ public class EventServiceImpl implements EventService {
 				MapMessage message = session.createMapMessage();
 				message.setLong("server_timestamp", System.currentTimeMillis());
 				message.setLong("client_timestamp", event.getClientTimestamp());
+				message.setBoolean("persist", persist);
 				message.setLong("thing_id", thingId);
 				String json = JSONUtils.generateJSON(event.getData());
 				message.setString("data", json);
@@ -90,4 +99,6 @@ public class EventServiceImpl implements EventService {
 			}
 		});
 	}
+
+
 }

@@ -57,6 +57,14 @@ public interface SubscriptionService {
 	 */
 	List<Event> getEvents(long id, long waitTime) throws SubscriptionExpiredException;
 	
+	
+	/**
+	 * Get all subscriptions.
+	 * 
+	 * @return
+	 */
+	List<Subscription> getSubscriptions();
+	
 	/**
 	 * Get subscription.
 	 * 

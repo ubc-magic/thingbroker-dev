@@ -10,8 +10,10 @@ import java.util.List;
  */
 public class Subscription {
 
-	private long id;
-	private List<String> things;
+	private long id;				// subscription id
+	//private Account account;		// owner of the subscription
+	//private String callbackUrl;		// callback URL for subscription
+	private List<String> things;	// list of things subscribed to
 	
 	public long getId() {
 		return id;
@@ -19,11 +21,11 @@ public class Subscription {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<String> getThing() {
+	public List<String> getThings() {
 		return things;
 	}
-	public void setThing(List<String> thing) {
-		this.things = thing;
+	public void setThings(List<String> things) {
+		this.things = things;
 	}
 
 }

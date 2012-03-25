@@ -3,21 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.springframework.samples.spring</groupId>
-	<artifactId>spring-utility</artifactId>
-	<version>1.0.0.CI-SNAPSHOT</version>
+	<groupId>ca.ubc.magic.thingbroker</groupId>
+	<artifactId>thingbroker-core</artifactId>
+	<version>0.0.1.CI-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Spring Utility</name>
-	<url>http://www.springframework.org</url>
-	<description>
-		<![CDATA[
-      This project is a minimal jar utility with Spring configuration.
-    ]]>
-	</description>
+	<name>Thing Broker Core</name>
+	<url>http://www.magic.ubc.ca</url>
+	<description>This project contains the core logic for the thing broker.  Include it to use the thing broker functionality in your application.</description>
 	<properties>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<spring.framework.version>3.0.6.RELEASE</spring.framework.version>
-	</properties>	<dependencies>
+	</properties>
+	<dependencies>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -99,4 +96,9 @@
  
 		</plugins>
 	</build> 
+	<inceptionYear>March 21, 2012</inceptionYear>
+	<organization>
+		<name>UBC MAGIC Lab</name>
+		<url>http://www.magic.ubc.ca</url>
+	</organization>
 </project>

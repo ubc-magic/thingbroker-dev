@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS event_subscription;
 create table things (
 	id bigint auto_increment not null unique,
   	name varchar(255) not null unique,
+  	-- name part1, part2, part3 for quick queries
   	meta_data varchar(255),
   	state varchar(255),
   	PRIMARY KEY (id),
@@ -33,8 +34,19 @@ create table events (
 	thing_id bigint not null,
 	client_time_stamp bigint not null,
 	server_time_stamp bigint not null,
+	-- other reserved data fields
 	data varchar(255) not null,
 	foreign key (thing_id) references things(id) on delete cascade
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- index table, contains number and/or string value of a field buried in data
+
+create table event_field_index (
+	event_id bigint not null,
+	field_name varchar(255) not null,
+	field_value double,
+	field_value_string varchar(255),
+	foreign key (event_id) references events(id) on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- event subscriptions

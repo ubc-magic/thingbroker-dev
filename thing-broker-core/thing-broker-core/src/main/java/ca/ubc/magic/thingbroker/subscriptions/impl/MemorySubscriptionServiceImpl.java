@@ -54,7 +54,7 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService, Dispo
 		sub.setId(nextId+1);
 		List<String> thingList = new ArrayList<String>();
 		thingList.add(name);
-		sub.setThing(thingList);
+		sub.setThings(thingList);
 		try {
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			Destination topic = session.createTopic("thingbroker."+name);
@@ -91,6 +91,14 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService, Dispo
 			throws SubscriptionExpiredException {
 		JmsSubscription sub = subscriptions.get(id);
 		return sub.getEvents(waitTime);
+	}
+
+	public List<Subscription> getSubscriptions() {
+		List<Subscription> subs = new ArrayList<Subscription>();
+		for (Long key: subscriptions.keySet()) {
+			subs.add(subscriptions.get(key).getSubscription());
+		}
+		return subs;
 	}
 
 	public Subscription getSubscription(long id)

@@ -21,8 +21,23 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 
 	<context:component-scan base-package="ca.ubc.magic.thingbroker" />
+	-->
+
+	<beans:bean id="homeController" class="ca.ubc.magic.thingbroker.HomeController">
+	</beans:bean>
+		 
+	<beans:bean id="eventsController" class="ca.ubc.magic.thingbroker.events.EventsController">
+		<beans:constructor-arg ref="eventService"/>
+	</beans:bean>
+	 
+	<beans:bean id="eventsApiController" class="ca.ubc.magic.thingbroker.events.EventsAPIController">
+		<beans:constructor-arg ref="eventService"/>
+	</beans:bean>
 	
-	
+	<beans:bean id="subsController" class="ca.ubc.magic.thingbroker.subscriptions.SubscriptionsController">
+		<beans:constructor-arg ref="subscriptionService"/>
+	</beans:bean>
 	
 </beans:beans>

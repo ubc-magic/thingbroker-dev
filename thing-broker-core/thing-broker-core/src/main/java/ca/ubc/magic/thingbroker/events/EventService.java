@@ -43,15 +43,24 @@ public interface EventService {
 	List<Event> queryEvents(String name, String query);
 	
 	/**
-	 * Send data to thing.
+	 * Send events to thing.
+	 * 
+	 * 
+	 * @param events events to send
+	 * @param save true if event should be saved
+	 */
+	void sendEvents(String name, List<Event> events, boolean save);
+	
+	/**
+	 * Send single event to thing.
 	 * 
 	 * POST /events/{name}?_save={true|false}
 	 * POST /events/{name}?field1=data1&field2=data2
 	 * 
-	 * @param data events to send
+	 * @param eevnt event to send
 	 * @param save true if event should be saved
 	 */
-	void sendEvents(String name, List<Event> data, boolean save);
+	void sendEvent(String name, Event event, boolean save);
 	
 	/**
 	 * Add an index to a data field so it can be queried.  Wildcards supported.

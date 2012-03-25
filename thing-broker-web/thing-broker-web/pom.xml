@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sensetecnic</groupId>
-	<artifactId>thingbroker</artifactId>
-	<name>abc</name>
-	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<groupId>ca.ubc.magic.thingbroker</groupId>
+	<artifactId>thingbroker-web</artifactId>
+	<version>0.0.1.CI-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Thing Broker Web</name>
+	<url>http://www.magic.ubc.ca</url>
 	<properties>
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.0.6.RELEASE</org.springframework-version>
@@ -32,7 +34,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+		
+		<!-- Thing Broker Core -->
+		<dependency>
+			<groupId>ca.ubc.magic.thingbroker</groupId>
+			<artifactId>thingbroker-core</artifactId>
+			<version>0.0.1.CI-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -81,6 +90,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
+			
 		</dependency>
 
 		<!-- @Inject -->
@@ -97,13 +107,15 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
+	<!-- 
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+  -->
+ 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
