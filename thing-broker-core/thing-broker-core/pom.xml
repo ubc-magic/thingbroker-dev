@@ -69,6 +69,13 @@
 			<version>3.0.2.RELEASE</version>
 		</dependency>
 		
+		<!-- database -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.0.2.RELEASE</version>
+		</dependency>
+		
 		<!-- JSON serialization -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>

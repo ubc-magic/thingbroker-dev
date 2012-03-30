@@ -21,6 +21,7 @@ import org.springframework.beans.factory.DisposableBean;
 
 import ca.ubc.magic.thingbroker.ThingBrokerException;
 import ca.ubc.magic.thingbroker.events.Event;
+import ca.ubc.magic.thingbroker.subscriptions.EventHandler;
 import ca.ubc.magic.thingbroker.subscriptions.Subscription;
 import ca.ubc.magic.thingbroker.subscriptions.SubscriptionExpiredException;
 import ca.ubc.magic.thingbroker.subscriptions.SubscriptionService;
@@ -50,8 +51,22 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService, Dispo
 	}
 	
 	public long subscribe(String name) {
+		return doSubscribe(name, null, null);
+	}
+
+	public long subscribe(String name, String url) {
+		UrlEventHandler urlHandler = new UrlEventHandler();
+		return doSubscribe(name, url, urlHandler);
+	}
+
+	public long subscribe(String name, EventHandler eventHandler) {
+		return doSubscribe(name, null, eventHandler);
+	}
+	
+	private long doSubscribe(String name, String url, EventHandler eventHandler) {
 		Subscription sub = new Subscription();
 		sub.setId(nextId+1);
+		sub.setCallbackUrl(url);
 		List<String> thingList = new ArrayList<String>();
 		thingList.add(name);
 		sub.setThings(thingList);
@@ -59,7 +74,7 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService, Dispo
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			Destination topic = session.createTopic("thingbroker."+name);
 			MessageConsumer consumer = session.createConsumer(topic);
-			JmsSubscription s = new JmsSubscription(sub, session, consumer);
+			JmsSubscription s = new JmsSubscription(sub, session, consumer, eventHandler);
 			consumer.setMessageListener(s);
 			subscriptions.put(sub.getId(), s);
 		} catch (JMSException e) {

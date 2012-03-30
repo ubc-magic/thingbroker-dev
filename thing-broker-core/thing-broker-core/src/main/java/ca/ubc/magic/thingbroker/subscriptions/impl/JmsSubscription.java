@@ -18,7 +18,9 @@ import javax.jms.Session;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ca.ubc.magic.thingbroker.ThingBrokerException;
 import ca.ubc.magic.thingbroker.events.Event;
+import ca.ubc.magic.thingbroker.subscriptions.EventHandler;
 import ca.ubc.magic.thingbroker.subscriptions.Subscription;
 import ca.ubc.magic.utils.JSONUtils;
 
@@ -37,12 +39,17 @@ public class JmsSubscription implements MessageListener {
 	private Session subSession;
 	private MessageConsumer consumer;
 	private LinkedBlockingQueue<Event> messageQueue;
+	private EventHandler eventHandler;
 	
-	public JmsSubscription(Subscription sub, Session subSession, MessageConsumer consumer) {
-		this.messageQueue = new LinkedBlockingQueue<Event>(QUEUE_CAPACITY);
+	public JmsSubscription(Subscription sub, Session subSession, MessageConsumer consumer, EventHandler eventHandler) {
 		this.subscription = sub;
 		this.subSession = subSession;
-		this.consumer = consumer;	
+		this.consumer = consumer;
+		this.eventHandler = eventHandler;
+		// if we don't have an event handler, then we will keep a queue of messages
+		// for retrieval by the server
+		if (eventHandler == null)
+			this.messageQueue = new LinkedBlockingQueue<Event>(QUEUE_CAPACITY);
 	}
 	public Subscription getSubscription() {
 		return subscription;
@@ -63,6 +70,9 @@ public class JmsSubscription implements MessageListener {
 		this.consumer = consumer;
 	}
 	public List<Event> getEvents(long waitTime) {
+		if (messageQueue == null)
+			throw new ThingBrokerException("attempt to get events from an event handler subscription");
+		
 		Event newEvent = null;
 		try {
 			newEvent = messageQueue.poll(waitTime, TimeUnit.SECONDS);
@@ -77,6 +87,7 @@ public class JmsSubscription implements MessageListener {
 		messageQueue.drainTo(events);
 		return events;
 	}
+	
 	public void onMessage(Message message) {
 		try {
 			MapMessage ac = (MapMessage) message;
@@ -88,8 +99,12 @@ public class JmsSubscription implements MessageListener {
 			newEvent.setThingId(ac.getLong("thing_id"));
 			newEvent.setData(JSONUtils.parseJSON(ac.getString("data")));
 			
-			// try to put data on queue, if full, just drop it
-			messageQueue.offer(newEvent);
+			if (eventHandler != null) {
+				eventHandler.handleEvent(newEvent);
+			} else {
+				// try to put data on queue, if full, just drop it
+				messageQueue.offer(newEvent);
+			}
 		} catch (JMSException jmse) {
 			logger.error("JMSException", jmse);
 		} catch (ClassCastException cce) {

@@ -14,6 +14,7 @@ public interface SubscriptionService {
 
 	/**
 	 * Subscribe to thing; thing name may contain wildcards.
+	 * Subscription will maintain a queue of received events.
 	 * 
 	 * POST /subs?thing={name}
 	 * 
@@ -22,6 +23,26 @@ public interface SubscriptionService {
 	 * @return
 	 */
 	long subscribe(String name);
+	
+	/**
+	 * Subscribe to thing(s) and send events to the specified URL
+	 * 
+	 * @param name
+	 * @param url
+	 * @return
+	 */
+	long subscribe(String name, String url);
+	
+	/**
+	 * Subscribe to thing; thing name may contain wildcards.
+	 * Subscription will not maintain a queue, but will call eventHandler on every
+	 * event received.
+	 * 
+	 * @param name
+	 * @param eventHandler event handler for receiving events
+	 * @return
+	 */
+	long subscribe(String name, EventHandler eventHandler);
 	
 	/**
 	 * add another thing to an existing subscription; thing may contain wildcards
