@@ -5,18 +5,18 @@ create table things (
   	name varchar(255) not null unique,
   	-- name part1, part2, part3 for quick queries
   	meta_data varchar(255),
-  	state varchar(255),
   	PRIMARY KEY (id),
   	UNIQUE KEY (name)
 );
 
--- thing state and field schema
+-- thing state fields
 
-create table state (
+create table state_fields (
 	thing_id bigint not null,
 	time_stamp bigint not null,
 	name varchar(255) not null,
-	state_value varchar(255),
+	str_value varchar(255) comment 'string value of state field',
+	num_value double comment 'numeric value of state field',
 	foreign key (thing_id) references things(id) on delete cascade
 );
 

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2012 Sense Tecnic Systems, Inc. All rights reserved.
+ * Copyright (c) 2012 Media and Graphics Interdisciplinary Centre
+ * University of British Columbia.
  */
 package ca.ubc.magic.thingbroker.state;
 
@@ -23,7 +24,7 @@ public interface StateService {
 	 * 
 	 * @return
 	 */
-	List<Map<String, State>> getAllState(String thing);
+	List<Map<String, StateField>> getAllState(String thing);
 	
 	/**
 	 * 
@@ -32,7 +33,7 @@ public interface StateService {
 	 * @param thing no wildcards
 	 * @param state all state
 	 */
-	void updateAllState(String thing, Map<String, State> state);
+	void updateAllState(String thing, Map<String, StateField> state);
 	
 	/**
 	 * 
@@ -52,7 +53,7 @@ public interface StateService {
 	 * @param field
 	 * @return
 	 */
-	State getState(String thing, String field);
+	StateField getState(String thing, String field);
 	
 	/**
 	 * 
@@ -62,7 +63,7 @@ public interface StateService {
 	 * @param field
 	 * @param state
 	 */
-	void updateState(String thing, String field, State state);
+	void updateState(String thing, String field, StateField state);
 	
 	/**
 	 * 

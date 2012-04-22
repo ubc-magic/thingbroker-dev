@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2012 Sense Tecnic Systems, Inc. All rights reserved.
+ * Copyright (c) 2012 Media and Graphics Interdisciplinary Centre
+ * University of British Columbia.
  */
 package ca.ubc.magic.thingbroker.things;
 

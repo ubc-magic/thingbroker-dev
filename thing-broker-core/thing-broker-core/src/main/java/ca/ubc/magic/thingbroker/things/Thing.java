@@ -1,16 +1,27 @@
+/**
+ * Copyright (c) 2012 Media and Graphics Interdisciplinary Centre
+ * University of British Columbia.
+ */
 package ca.ubc.magic.thingbroker.things;
 
 import java.util.Map;
 
-import ca.ubc.magic.thingbroker.state.State;
+import ca.ubc.magic.thingbroker.state.StateField;
 
+/**
+ * A Thing is a container for a person, place or object with a name, information about the thing (metadata),
+ * and its state.
+ * 
+ * @author Mike Blackstock
+ *
+ */
 public class Thing {
 	
 	private String name;
 	
 	private Map<String, Object> metaData;
 	
-	private Map<String, State> state;
+	private Map<String, StateField> state;
 	
 	public String getName() {
 		return name;
@@ -34,20 +45,15 @@ public class Thing {
 	}
 
 	/**
-	 * State: last time stamped data values (state) of the thing.
+	 * State: last time stamped event values (state) of the thing.
 	 * 
 	 * @return
 	 */
-	public Map<String, State> getState() {
+	public Map<String, StateField> getState() {
 		return state;
 	}
 
-	/**
-	 * Update the last timestamped data values (state) of the thing.
-	 * 
-	 * @param state
-	 */
-	public void setState(Map<String, State> state) {
+	public void setState(Map<String, StateField> state) {
 		this.state = state;
 	}
 }

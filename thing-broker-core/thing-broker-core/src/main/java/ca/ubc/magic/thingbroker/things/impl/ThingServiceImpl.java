@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2012 Sense Tecnic Systems, Inc. All rights reserved.
+ * Copyright (c) 2012 Media and Graphics Interdisciplinary Centre
+ * University of British Columbia.
  */
 package ca.ubc.magic.thingbroker.things.impl;
 
@@ -24,56 +25,58 @@ public class ThingServiceImpl implements ThingService {
 		
 		// translate name into MySQL wildcard
 		
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#updateThing(java.lang.String, java.util.Map)
 	 */
 	public Thing updateThing(String name, Map<String, Object> metaData) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#insertThing(java.lang.String, java.util.Map)
 	 */
 	public Thing insertThing(String name, Map<String, Object> metaData) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#deleteThing(java.lang.String)
 	 */
 	public void deleteThing(String name) {
-		// TODO Auto-generated method stub
-
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#findThings(java.lang.String)
 	 */
 	public List<Thing> queryThings(String query) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: generate query suitable for repository or just delegate
+		
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#addMetaDataIndex(java.lang.String, java.lang.String)
 	 */
 	public void addMetaDataIndex(String name, String fieldName) {
-		// TODO Auto-generated method stub
-
+		// TODO: not implemented yet.
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#addStateIndex(java.lang.String, java.lang.String)
 	 */
 	public void addStateIndex(String name, String fieldName) {
-		// TODO Auto-generated method stub
-
+		// TODO: not implemented yet
+		throw new UnsupportedOperationException("TODO: Not implemented yet.");
 	}
 
 }

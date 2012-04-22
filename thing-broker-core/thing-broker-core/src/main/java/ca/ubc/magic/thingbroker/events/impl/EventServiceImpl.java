@@ -32,21 +32,33 @@ public class EventServiceImpl implements EventService {
 		this.thingRepository = thingRepository;
 	}
 
-	public Event updateData(long id, Event data) {
+	/* (non-Javadoc)
+	 * @see ca.ubc.magic.thingbroker.events.EventService#updateData(long, ca.ubc.magic.thingbroker.events.Event)
+	 */
+	public Event updateEvent(long id, Event event) {
 		// TODO Auto-generated method stub
 	    throw new UnsupportedOperationException("TODO");
 	}
 
-	public Event deleteData(long id) {
+	/* (non-Javadoc)
+	 * @see ca.ubc.magic.thingbroker.events.EventService#deleteData(long)
+	 */
+	public Event deleteEvent(long id) {
 		// TODO Auto-generated method stub
 	    throw new UnsupportedOperationException("TODO");
 	}
 
+	/* (non-Javadoc)
+	 * @see ca.ubc.magic.thingbroker.events.EventService#queryEvents(java.lang.String, java.lang.String)
+	 */
 	public List<Event> queryEvents(String name, String query) {
 		// TODO Auto-generated method stub
 	    throw new UnsupportedOperationException("TODO");
 	}
 
+	/* (non-Javadoc)
+	 * @see ca.ubc.magic.thingbroker.events.EventService#sendEvents(java.lang.String, java.util.List, boolean)
+	 */
 	public void sendEvents(String name, List<Event> events, boolean persist) {
 		// get the thing id from the repository
 		try {

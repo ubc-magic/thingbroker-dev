@@ -17,7 +17,7 @@ public interface EventService {
 	 * @param data
 	 * @return
 	 */
-	Event updateData(long id, Event data);
+	Event updateEvent(long id, Event data);
 	
 	/**
 	 * 
@@ -28,7 +28,7 @@ public interface EventService {
 	 * @param id
 	 * @return
 	 */
-	Event deleteData(long id);
+	Event deleteEvent(long id);
 
 	/**
 	 * Historical data query.  Wildcards supported in thing name

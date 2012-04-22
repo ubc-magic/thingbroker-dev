@@ -34,7 +34,7 @@
 						<value>tcp://localhost:61616</value>
  						-->
  						<!-- embedded broker for testing -->
- 						<value>vm://transport</value>
+ 						<value>vm://broker1?broker.persistent=false</value>
 				</property>
 			</bean>
 		</property>

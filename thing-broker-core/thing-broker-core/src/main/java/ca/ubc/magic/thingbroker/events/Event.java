@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2012 Media and Graphics Interdisciplinary Centre
+ * University of British Columbia.
+ */
 package ca.ubc.magic.thingbroker.events;
 
 import java.util.Map;
@@ -18,6 +22,9 @@ public class Event {
 	private Map<String, Object> data;
 	private boolean save = false;
 
+	/**
+	 * Unique id of the event once its been assigned by the repository.
+	 */
 	public long getId() {
 		return id;
 	}
@@ -26,6 +33,9 @@ public class Event {
 		this.id = id;
 	}
 
+	/**
+	 * Id of the thing this event belongs to in the thing repository.
+	 */
 	public long getThingId() {
 		return thingId;
 	}
@@ -34,6 +44,9 @@ public class Event {
 		this.thingId = thingId;
 	}
 
+	/**
+	 * The timestamp for the event sent by the client (sensor, phone, etc.)
+	 */
 	public Long getClientTimestamp() {
 		return clientTimestamp;
 	}
@@ -42,6 +55,9 @@ public class Event {
 		this.clientTimestamp = clientTimestamp;
 	}
 
+	/**
+	 * The timestamp for when the event was received by the server.
+	 */
 	public long getServerTimestamp() {
 		return serverTimestamp;
 	}
@@ -50,6 +66,9 @@ public class Event {
 		this.serverTimestamp = serverTimestamp;
 	}
 
+	/**
+	 * The event data.
+	 */
 	public Map<String, Object> getData() {
 		return data;
 	}
@@ -58,6 +77,9 @@ public class Event {
 		this.data = data;
 	}
 
+	/**
+	 * true if the event will be saved in the event repository.
+	 */
 	public boolean isSave() {
 		return save;
 	}
