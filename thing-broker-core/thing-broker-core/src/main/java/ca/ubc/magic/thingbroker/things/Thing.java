@@ -19,6 +19,8 @@ public class Thing {
 	
 	private String name;
 	
+	private Long id;
+	
 	private Map<String, Object> metaData;
 	
 	private Map<String, StateField> state;
@@ -32,9 +34,21 @@ public class Thing {
 	}
 
 	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
 	 * Metadata: information about the thing.
-	 * 
-	 * @return
 	 */
 	public Map<String, Object> getMetaData() {
 		return metaData;
@@ -51,9 +65,5 @@ public class Thing {
 	 */
 	public Map<String, StateField> getState() {
 		return state;
-	}
-
-	public void setState(Map<String, StateField> state) {
-		this.state = state;
 	}
 }

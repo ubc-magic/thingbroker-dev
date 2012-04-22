@@ -27,7 +27,11 @@
 
 	<beans:bean id="homeController" class="ca.ubc.magic.thingbroker.HomeController">
 	</beans:bean>
-		 
+	
+	<beans:bean id="thingsController" class="ca.ubc.magic.thingbroker.things.ThingsController">
+		<beans:constructor-arg ref="thingService"/>
+	</beans:bean>	 
+	
 	<beans:bean id="eventsController" class="ca.ubc.magic.thingbroker.events.EventsController">
 		<beans:constructor-arg ref="eventService"/>
 	</beans:bean>

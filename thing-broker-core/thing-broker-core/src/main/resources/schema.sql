@@ -1,9 +1,9 @@
 -- things
+-- name part1, part2, part3 for quick queries
 
 create table things (
 	id bigint auto_increment not null unique,
   	name varchar(255) not null unique,
-  	-- name part1, part2, part3 for quick queries
   	meta_data varchar(255),
   	PRIMARY KEY (id),
   	UNIQUE KEY (name)
@@ -21,13 +21,13 @@ create table state_fields (
 );
 
 -- thing events
+-- other reserved data fields
 
 create table events (
 	id bigint auto_increment not null unique,
 	thing_id bigint not null,
 	client_time_stamp bigint not null,
 	server_time_stamp bigint not null,
-	-- other reserved data fields
 	data varchar(255) not null,
 	foreign key (thing_id) references things(id) on delete cascade
 );

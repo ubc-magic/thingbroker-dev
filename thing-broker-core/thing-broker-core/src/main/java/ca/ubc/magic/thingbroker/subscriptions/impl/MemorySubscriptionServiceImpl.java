@@ -47,6 +47,7 @@ public class MemorySubscriptionServiceImpl implements SubscriptionService, Dispo
 			this.connection.start();
 		} catch (JMSException e) {
 			logger.error(e.getMessage());
+			throw new ThingBrokerException("JMS Exception on startup", e);
 		}
 	}
 	

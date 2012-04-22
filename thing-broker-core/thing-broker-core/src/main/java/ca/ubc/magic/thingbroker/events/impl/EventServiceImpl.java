@@ -21,6 +21,7 @@ import ca.ubc.magic.thingbroker.events.EventService;
 import ca.ubc.magic.thingbroker.things.impl.ThingRepository;
 import ca.ubc.magic.utils.JSONUtils;
 
+
 public class EventServiceImpl implements EventService {
 	static final Log logger = LogFactory.getLog(EventServiceImpl.class);
 
