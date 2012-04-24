@@ -41,15 +41,17 @@ public class ThingsController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/{thingName:[.[a-z0-9_-\\*]+]*}")
+	@RequestMapping(value = "/{thingName:[.[a-z0-9_-]\\*+]*}")
 	public String list(@PathVariable String thingName, ModelMap model) {
 		logger.debug("list or view individual thing");
-		model.addAttribute("thingName", thingName);
 		List<Thing> things = thingService.getThings(thingName);
 		if (things.size() == 1) {
+			model.addAttribute("thingName", things.get(0).getName());
+
 			model.addAttribute("thing", things.get(0));
 			return "thing_show";
 		}
+		model.addAttribute("thingName", thingName);
 		// if there is zero or one thing, use the thing list.
 		model.addAttribute("things", things);
 		return "thing_list";

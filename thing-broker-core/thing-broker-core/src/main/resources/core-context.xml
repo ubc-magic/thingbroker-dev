@@ -11,6 +11,7 @@
 	http://activemq.apache.org/schema/core/activemq-core.xsd">
 	
 	<bean id="thingService" class="ca.ubc.magic.thingbroker.things.impl.ThingServiceImpl">
+		<constructor-arg ref="thingRepository"/>
 	</bean>
 	
 	<bean id="eventService" class="ca.ubc.magic.thingbroker.events.impl.EventServiceImpl">
@@ -22,7 +23,11 @@
 		<constructor-arg ref="connectionFactory"/>
 	</bean>
 	
-	<bean id="thingRepository" class="ca.ubc.magic.thingbroker.things.impl.MockThingRepository">
+	<!-- <bean id="thingRepository" class="ca.ubc.magic.thingbroker.things.impl.MockThingRepository">
+	</bean> -->
+	
+	<bean id="thingRepository" class="ca.ubc.magic.thingbroker.things.impl.JdbcThingRepository">
+		<constructor-arg ref="jdbcTemplate"/>
 	</bean>
 	
 	<!-- Spring JMS Template to make it easy to send messages into the broker -->
@@ -54,6 +59,10 @@
 			<amq:transportConnector uri="tcp://localhost:0" />
 		</amq:transportConnectors>
 	</amq:broker>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="embeddedDataSource" />
+	</bean>
  
 	<!-- embedded in memory database for rapid development -->
 	<jdbc:embedded-database id="embeddedDataSource" type="H2">

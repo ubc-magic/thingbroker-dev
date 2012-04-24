@@ -3,9 +3,12 @@
  */
 package ca.ubc.magic.thingbroker.things.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import ca.ubc.magic.thingbroker.things.Thing;
 
@@ -30,9 +33,21 @@ public class JdbcThingRepository implements ThingRepository {
 	}
 	
 	public List<Thing> getThings(String name) {
-		return null;
+		String sqlName = name.replace('*', '%');
+		return jdbcTemplate.query(SELECT_THINGS_BY_NAME, new ThingRowMapper(), sqlName);
 	}
 	
-	private final static String SELECT_ID_BY_NAME = "";
+	private static class ThingRowMapper implements RowMapper<Thing> {
 
+		public Thing mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Thing newThing = new Thing();
+			
+			newThing.setId(rs.getLong("id"));
+			newThing.setName(rs.getString("name"));
+			return newThing;
+		}
+	}
+	
+	private final static String SELECT_ID_BY_NAME = "select id from things where name=?";
+	private final static String SELECT_THINGS_BY_NAME = "select * from things where name like ?";
 }

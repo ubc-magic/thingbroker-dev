@@ -17,16 +17,18 @@ import ca.ubc.magic.thingbroker.things.ThingService;
  *
  */
 public class ThingServiceImpl implements ThingService {
+	
+	private final ThingRepository thingRepository;
+	
+	public ThingServiceImpl(ThingRepository thingRepository) {
+		this.thingRepository = thingRepository;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.sensetecnic.thingbroker.ThingService#getThings(java.lang.String)
 	 */
 	public List<Thing> getThings(String name) {
-		
-		// translate name into MySQL wildcard
-		
-		// TODO: not implemented yet.
-		throw new UnsupportedOperationException("TODO: Not implemented yet.");
+		return thingRepository.getThings(name);
 	}
 
 	/* (non-Javadoc)

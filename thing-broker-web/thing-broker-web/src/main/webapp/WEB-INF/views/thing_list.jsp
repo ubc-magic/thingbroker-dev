@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<h2>Things</h2>
+<h2>Things: ${thingName}</h2>
 <ul>
-<c:forEach var="thing" items="things">
-<li><a href="<c:url value='/things/${thingName}'/>">Thing: ${thingName}</a></li>	
+<c:forEach var="thing" items="${things}">
+<li><a href="<c:url value='/things/${thing.name}'/>">Thing: ${thing.name}</a></li>	
 </c:forEach>
 </ul>
 
