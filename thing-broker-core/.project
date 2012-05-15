@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>thingbroker-core</name>
+	<name>thing-broker-core</name>
 	<comment>This project is a simple template for a jar utility using Spring.
   </comment>
 	<projects>
