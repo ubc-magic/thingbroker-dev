@@ -6,7 +6,7 @@
 	<groupId>ca.ubc.magic.thingbroker</groupId>
 	<artifactId>thingbroker-web</artifactId>
 	<version>0.0.1.CI-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>Thing Broker Web</name>
 	<url>http://www.magic.ubc.ca</url>
 	<properties>
