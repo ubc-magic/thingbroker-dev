@@ -29,7 +29,7 @@ public class JdbcThingRepository implements ThingRepository {
 	 * @see ca.ubc.magic.thingbroker.things.impl.ThingRepository#getId(java.lang.String)
 	 */
 	public Long getId(String name) {
-		return jdbcTemplate.queryForLong(SELECT_ID_BY_NAME);
+		return jdbcTemplate.queryForLong(SELECT_ID_BY_NAME, name);
 	}
 	
 	public List<Thing> getThings(String name) {
